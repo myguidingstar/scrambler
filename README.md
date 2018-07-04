@@ -4,17 +4,6 @@ A simple Clojure(script) app built with Duct, Reagent and cljs-ajax.
 
 ## Developing
 
-### Setup
-
-When you first clone this repository, run:
-
-```sh
-lein duct setup
-```
-
-This will create files for local configuration, and prep your system
-for the project.
-
 ### Environment
 
 To begin developing, start with a REPL.
