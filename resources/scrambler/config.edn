@@ -1,0 +1,14 @@
+{:duct.core/project-ns  scrambler
+ :duct.core/environment :production
+
+ :duct.module/logging {}
+ :duct.module.web/site
+ {}
+
+ :duct.module/bidi
+ [{"/"         :scramble/index
+   "/scramble" :scramble/scramble}]
+
+ :duct.module/cljs {:main scrambler.client}
+
+ :scrambler.handler/scramble {}}
