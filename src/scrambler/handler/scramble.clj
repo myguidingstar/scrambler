@@ -75,7 +75,6 @@
     (rop/switch scramble?)
     ok))
 
-(scramble-handler ["abc" "bc"])
 (defn get-strings
   "Extracts strings to pass to scramble-handler in a Ring request map."
   [request]
