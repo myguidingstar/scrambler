@@ -27,7 +27,19 @@ dev=> (go)
 :initiated
 ```
 
-By default this creates a web server at <http://localhost:3000>.
+The app should be available at <http://localhost:3000>.
+
+## Things to try in the app
+
+...so you can see error messages in action:
+
+ - Leave one of the input boxes empty before click `Check`
+
+ - Use a long string (> 40 characters)
+
+ - Have an invalid character in one of the strings
+
+ - Shutdown server but still use the app in browser
 
 When you make changes to your source files, use `reset` to reload any
 modified files and reset the server. Changes to CSS or ClojureScript
