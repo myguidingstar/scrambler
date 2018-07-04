@@ -16,15 +16,7 @@
           65)))
   (testing "{ should result in error"
     (is (= (scramble/invalid-char "abcdefghijklmnopqrstuvwxyz{")
-          123)))
-
-  (testing "long strings"
-    (is (= (scramble/char-freq "abc")
-          {\a 1, \b 1, \c 1}))
-    (is (= (scramble/char-freq "abbc")
-          {\a 1, \b 2, \c 1}))
-    (is (= (scramble/char-freq "abbcccc")
-          {\a 1, \b 2, \c 4}))))
+          123))))
 
 (deftest char-freq-test
   (testing "empty string"
