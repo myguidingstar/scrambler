@@ -33,7 +33,7 @@
     (every? true?
       (for [[character freq-2] g2]
         (when-let [freq-1 (get g1 character)]
-          (<= freq-2 (get g1 character)))))))
+          (<= freq-2 freq-1))))))
 
 (defn error
   "Wraps an error message in rop/fail along with status code"
