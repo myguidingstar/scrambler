@@ -36,10 +36,12 @@
           (<= freq-2 (get g1 character)))))))
 
 (defn error
+  "Wraps an error message in rop/fail along with status code"
   [body]
   (rop/fail {:status 400 :body (pr-str {:error body})}))
 
 (defn ok
+  "Wraps a result message in rop/succeed along with status code"
   [body]
   (rop/succeed {:ok (pr-str {:result body})}))
 
