@@ -69,11 +69,21 @@
       (is (= (scramble/validate-strings ["abc" long-string])
             (scramble/error {:second [:too-long]}))))))
 
-(deftest smoke-test
-  (testing "scramble page exists"
-    (let [wrap-bidi #(bidi/route % ["" {"/scramble" :scramble/scramble}])
-          handler  (comp (ig/init-key :scrambler.handler/scramble {}) wrap-bidi)
-          response (handler (-> (mock/request :get "/scramble")
-                              (assoc :params {:first "abc" :second "bc"})))]
-      (and (is (= "{:result true}" (:body response)) "response ok")
-        (is (= 200 (:status response)) "response ok")))))
+(deftest integration-test
+  (let [wrap-bidi #(bidi/route % ["" {"/scramble" :scramble/scramble}])
+        handler  (comp (ig/init-key :scrambler.handler/scramble {}) wrap-bidi)]
+    (testing "matching pair"
+      (let [response (handler (-> (mock/request :get "/scramble")
+                                (assoc :params {:first "abc" :second "bc"})))]
+        (and (is (= "{:result true}" (:body response)))
+          (is (= 200 (:status response))))))
+    (testing "non matching pair"
+      (let [response (handler (-> (mock/request :get "/scramble")
+                                (assoc :params {:first "abc" :second "bd"})))]
+        (and (is (= "{:result false}" (:body response)))
+          (is (= 200 (:status response))))))
+    (testing "missing first string"
+      (let [response (handler (-> (mock/request :get "/scramble")
+                                (assoc :params {:second "bd"})))]
+        (and (is (= "{:error {:first [:empty]}}" (:body response)))
+          (is (= 400 (:status response))))))))
