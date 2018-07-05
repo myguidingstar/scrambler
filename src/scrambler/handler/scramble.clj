@@ -2,6 +2,7 @@
   (:require [compojure.core :refer :all]
             [rop.core :as rop]
             [ring.util.response :as response]
+            [muuntaja.middleware :refer [wrap-format]]
             [integrant.core :as ig]
             [clojure.java.io :as io]
             [scrambler.handler.index :as index]))
@@ -38,12 +39,12 @@
 (defn error
   "Wraps an error message in rop/fail along with status code"
   [body]
-  (rop/fail {:status 400 :body (pr-str {:error body})}))
+  (rop/fail {:status 400 :body {:error body}}))
 
 (defn ok
   "Wraps a result message in rop/succeed along with status code"
   [body]
-  (rop/succeed {:ok (pr-str {:result body})}))
+  (rop/succeed {:ok {:result body}}))
 
 (defn validate-strings
   "Stops and returns errors if any of given strings is invalid."
@@ -97,4 +98,4 @@
     "text/html"))
 
 (defmethod ig/init-key :scrambler.handler/scramble [_ options]
-  (partial site-routes options))
+  (wrap-format (partial site-routes options)))
