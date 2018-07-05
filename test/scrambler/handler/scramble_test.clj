@@ -66,16 +66,19 @@
         handler  (comp (ig/init-key :scrambler.handler/scramble {}) wrap-bidi)]
     (testing "matching pair"
       (let [response (handler (-> (mock/request :get "/scramble")
-                                (assoc :params {:first "abc" :second "bc"})))]
-        (and (is (= "{:result true}" (:body response)))
+                                (assoc :params {:first "abc" :second "bc"})
+                                (assoc :headers {"accept" "application/edn"})))]
+        (and (is (= "{:result true}" (slurp (:body response))))
           (is (= 200 (:status response))))))
     (testing "non matching pair"
       (let [response (handler (-> (mock/request :get "/scramble")
-                                (assoc :params {:first "abc" :second "bd"})))]
-        (and (is (= "{:result false}" (:body response)))
+                                (assoc :params {:first "abc" :second "bd"})
+                                (assoc :headers {"accept" "application/edn"})))]
+        (and (is (= "{:result false}" (slurp (:body response))))
           (is (= 200 (:status response))))))
     (testing "missing first string"
       (let [response (handler (-> (mock/request :get "/scramble")
-                                (assoc :params {:second "bd"})))]
-        (and (is (= "{:error {:first [:empty]}}" (:body response)))
+                                (assoc :params {:second "bd"})
+                                (assoc :headers {"accept" "application/edn"})))]
+        (and (is (= "{:error {:first [:empty]}}" (slurp (:body response))))
           (is (= 400 (:status response))))))))
