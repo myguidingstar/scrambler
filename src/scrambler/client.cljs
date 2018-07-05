@@ -1,6 +1,5 @@
 (ns scrambler.client
   (:require [ajax.core :refer [GET POST]]
-            [clojure.reader :as reader]
             [reagent.core :as reagent]))
 
 (defonce app-state-atom (reagent/atom {:last-message  {}
@@ -26,20 +25,19 @@
     (swap! app-state-atom assoc k value)))
 
 (defn handler [result]
-  (swap! app-state-atom assoc :last-message
-    (reader/read-string result)))
+  (swap! app-state-atom assoc :last-message result))
 
 (defn error-handler [{:keys [status response]}]
   (if (zero? status)
     (swap! app-state-atom assoc :last-message {:offline true})
-    (swap! app-state-atom assoc :last-message
-      (reader/read-string response))))
+    (swap! app-state-atom assoc :last-message response)))
 
 (defn do-submit
   []
   (GET "/scramble"
     :params {:first  (:first-string @app-state-atom)
              :second (:second-string @app-state-atom)}
+    :response-format :transit
     :handler handler
     :error-handler error-handler))
 
