@@ -29,7 +29,14 @@ dev=> (go)
 
 The app should be available at <http://localhost:3000>.
 
-## Things to try in the app
+## Play with the API
+
+```
+curl -H 'Accept: application/json' 'localhost:3000/scramble?first=abc&second='
+curl -H 'Accept: application/edn' 'localhost:3000/scramble?first=abc&second=bc'
+```
+
+## Things to try in the Clojurescript app
 
 ...so you can see error messages in action:
 
@@ -40,6 +47,8 @@ The app should be available at <http://localhost:3000>.
  - Have an invalid character in one of the strings
 
  - Shutdown server but still use the app in browser
+
+## Reset workflow
 
 When you make changes to your source files, use `reset` to reload any
 modified files and reset the server. Changes to CSS or ClojureScript
