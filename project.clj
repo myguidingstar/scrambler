@@ -8,6 +8,7 @@
                  [duct/module.web "0.6.4"]
                  [duct/module.cljs "0.3.2"]
                  [duct.module.bidi "0.5.0"]
+                 [metosin/muuntaja "0.6.0-alpha1"]
                  [rop "0.3.0"]
                  [reagent "0.8.0"]
                  [re-frame "0.10.5"]
